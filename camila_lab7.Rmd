@@ -26,10 +26,34 @@ Camila: data wrangling and counts
 ```{r}
 get_guns <- gc_df %>% 
   filter(gender != "NA", make_get_guns != "NA") %>% 
-  count(gender, make_get_guns) %>% 
-  spread(make_get_guns, n) %>% 
+  count(gender, make_get_guns) %>% # Count how many people chose each opinion based on gender
+  spread(make_get_guns, n) %>% # Spread out the make_get_guns designations by n (counts)
   select(-gender)
 
-rownames(get_guns) <- c("Female", "Male")
+rownames(get_guns) <- c("Female", "Male") # Change row names in df such that only numbers exist in the center
 ```
+
+This is Corinna, the collaborator. I am going to do a chi-squared test for independence
+
+We ask, "Is there a significant association between sex and opinion on whether guns should be more difficult, easier, or the same difficulty to get.""
+
+```{r}
+
+# Let's look at the actual proportions:
+
+guns_prop <- prop.table(as.matrix(get_guns), 1) # Updates get_guns to a matrix for it to work in prop.table. The 1 is the margin over which to calculate proportion
+guns_prop
+
+
+
+# Run a chi-squared test for independence
+
+#H0: No significant difference between proportions in male and female
+
+guns_x2 <- chisq.test(get_guns)
+guns_x2
+
+```
+
+"recommended government action on gun access differed significantly between male (n = ) and female (n = ) respondents ($\chi^2${`r guns_x2$parameter`} = ....., p < 0.001). Notably, a much higher proportion of female respondents (57.4%) recommended making it more difficult to get guns, compared to 40.4% for males.
 
