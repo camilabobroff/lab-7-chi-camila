@@ -19,5 +19,5 @@ gc_df <- read_csv("gc_df.csv")
 
 We are asking: Is there a signficant difference in recommended gun control action for male and female respondents (should guns be easier, harder, or the same difficulty to get)?
 
-
+Hi Camila :) I am going to test if you can see these changes.
 
